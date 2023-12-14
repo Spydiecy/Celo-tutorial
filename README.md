@@ -46,10 +46,10 @@ Get ready to revolutionize your DApps - let’s dive in!
 
 Before we embark on this thrilling journey, let’s ensure you have the essentials in your developer toolkit:
 
-- **Solidity Programming Language:** Familiarity with Solidity, the language of smart contracts will be your key to success throughout this tutorial. Don’t worry if you’re new to it - we’ll provide explanations and examples along the way.
-- **Basics of the Celo Platform:** To make the most of this tutorial, it’s beneficial to have a foundational understanding of the Celo platform. But don’t fret if you’re not there yet - we’ll guide you through the fundamentals, ensuring you’re ready to soar!
-- **Blockchain Technology and Smart Contracts:** If you’ve got some knowledge of blockchain technology and smart contracts, you’re already ahead of the game. However, if you’re new to these concepts, fear not! We’ll provide you with the necessary explanations to grasp the magic behind decentralized applications.
-- **Read This Article for Basic Understanding on Celo Crowdfunding:** To set the stage for our adventure, we recommend taking a quick detour to read an article that offers a basic understanding of Celo Crowdfunding. Visit Celo Crowdfunding Basics and familiarize yourself with this crucial component of the Celo ecosystem.
+- **Solidity Programming Language:** Familiarity with Solidity, the language of smart contracts will be your key to success throughout this tutorial. Don’t worry if you’re new to it - we’ll provide explanations and examples along the way. https://ethereum.org/en/developers/docs/smart-contracts/
+- **Basics of the Celo Platform:** To make the most of this tutorial, it’s beneficial to have a foundational understanding of the Celo platform. But don’t fret if you’re not there yet - we’ll guide you through the fundamentals, ensuring you’re ready to soar! https://dacade.org/communities/celo, https://docs.celo.org/developer/walkthrough/hello-contract-remote-node
+- **Blockchain Technology and Smart Contracts:** If you’ve got some knowledge of blockchain technology and smart contracts, you’re already ahead of the game. However, if you’re new to these concepts, fear not! We’ll provide you with the necessary explanations to grasp the magic behind decentralized applications. https://dacade.org/communities/blockchain
+- **Read This Article for Basic Understanding on Celo Crowdfunding:** To set the stage for our adventure, we recommend taking a quick detour to read an article that offers a basic understanding of Celo Crowdfunding. Visit Celo Crowdfunding Basics and familiarize yourself with this crucial component of the Celo ecosystem. https://medium.com/@ajaotosinserah/smart-contract-development-on-celo-a-beginners-guide-to-writing-and-deploying-a-contract-on-the-f25a0941e527
 
 With these essentials in your arsenal, you’re well-prepared to delve into the captivating world of Celo Crowdfunding. We’re here to guide you every step of the way, ensuring that you grasp the concepts and gain hands-on experience with ease.
 
@@ -119,17 +119,40 @@ Now that we understand the basics of Celo’s crowdfunding system, let’s start
 
 ### Install Celo’s Crowdfunding Library
 
-First, we need to install the Celo library and other necessary dependencies. Open your terminal, navigate to your project directory, and run the following command:
+We will be building the crowdfunding platform on Celo using smart contracts written in Solidity. Solidity is a statically-typed programming language designed for developing smart contracts that run on the Ethereum Virtual Machine, also known as EVM. Smart contracts are self-executing contracts with the terms of the agreement directly written into code.
+
+The tools we’ll be using include:
+
+- Node.js: This is a JavaScript runtime built on Chrome’s V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices. We’ll be using Node.js to create our backend server.
+
+- Truffle Suite: This is a development environment, testing framework, and asset pipeline for Ethereum (and by extension, Celo, which is compatible with Ethereum). We’ll use Truffle to compile and deploy our smart contracts.
+
+- Celo’s ContractKit SDK: This is a software development kit provided by Celo to help developers build on their platform. We’ll use ContractKit to interact with the Celo network, including sending transactions, interacting with smart contracts, and more.
+
+To install the required libraries, you can run the following command in your terminal:
 
 ```bash
-npm install @celo/contractkit express web3
+npm install @celo/contractkit@1.0.1 express@4.17.1 web3@1.5.3
 ```
 
-This will install the Celo ContractKit library, the Express.js web framework, and the Web3.js library for interacting with Ethereum-based blockchains.
+This command does the following:
+
+- `npm` install is the command used to install Node.js packages.
+- `@celo/contractkit@1.0.1` is the package for Celo’s ContractKit SDK. The @1.0.1 specifies the version of the package to install.
+- `express@4.17.1` is the package for Express.js, a minimal and flexible Node.js web application framework.
+- `web3@1.5.3` is the package for Web3.js, a collection of libraries that allow you to interact with a local or remote Ethereum node using HTTP, IPC, or WebSocket.
+  
+After running this command, these packages will be installed in your Node.js project, and you can require them in your JavaScript files as needed. They provide the functionality necessary for interfacing with the Celo network, creating a backend server, and communicating with the Celo nodes.
 
 ### Import the Crowdfunding Contract
 
-Next, we need to import the crowdfunding smart contract. Create a new file in your project directory called Crowdfunding.sol and add the following code:
+In this step, we will create a placeholder for our crowdfunding smart contract. This contract will be written in Solidity, a statically-typed programming language designed for developing smart contracts that run on the Ethereum Virtual Machine, also known as EVM.
+
+Here’s how to do it:
+
+- Create a new file in your project directory and name it `Crowdfunding.sol`.
+
+- Add the following code to the `Crowdfunding.sol` file:
 
 ```bash
 pragma solidity ^0.5.16;
@@ -139,11 +162,17 @@ contract Crowdfunding {
 }
 ```
 
-This is just a placeholder for now. In the next steps, we’ll add functions to this contract for creating projects, contributing to projects, and withdrawing funds.
+Let’s break down what this code does:
+
+- `pragma solidity ^0.5.16;` : This line specifies the version of Solidity that the contract is written in. It’s important to specify the correct version to ensure that the contract compiles correctly.
+
+- `contract Crowdfunding {...}` : This line declares a new contract named Crowdfunding. The body of the contract is enclosed in curly braces {...}. Right now, the body of the contract is empty because this is just a placeholder.
 
 ### Initialize the Crowdfunding Contract
 
-Now, let’s initialize the crowdfunding contract. In your server.js file, add the following code:
+In this step, we will initialize the crowdfunding contract. This is a crucial step as it sets up the connection to the Celo blockchain and allows us to interact with our smart contract.
+
+Here’s the code you need to add to your `server.js` file:
 
 ```bash
 const ContractKit = require('@celo/contractkit');
@@ -155,11 +184,23 @@ const kit = ContractKit.newKitFromWeb3(web3);
 // ... rest of the code goes here ...
 ```
 
-This code creates a new instance of Web3 connected to the Celo Alfajores testnet and initializes a new instance of ContractKit using this Web3 instance.
+Let’s break down what this code does:
+
+- `const ContractKit = require('@celo/contractkit');` : This line imports the ContractKit library from Celo. ContractKit is a powerful tool that simplifies interaction with the Celo blockchain.
+
+- `const Web3 = require('web3');` : This line imports the Web3 library. Web3.js is a collection of libraries that allow you to interact with a local or remote Ethereum node using HTTP, IPC, or WebSocket.
+
+- `const web3 = new Web3('https://alfajores-forno.celo-testnet.org');` : This line creates a new instance of Web3 and connects it to the Celo Alfajores testnet. Alfajores is one of Celo’s test networks (or testnets) that developers can use to test their applications.
+
+- `const kit = ContractKit.newKitFromWeb3(web3);` : This line initializes a new instance of ContractKit using the Web3 instance. This kit will allow us to interact with our crowdfunding contract on the Celo blockchain.
+
+The rest of the code will go after these lines. This setup is necessary for any application that interacts with the Celo blockchain. It establishes the connection to the blockchain and sets up the tools we need to interact with it.
 
 ### Retrieve Data from the Crowdfunding
 
-Next, we’ll add a function to retrieve data from the crowdfunding contract. Add the following code to your server.js file:
+In this step, we will add a function to retrieve data from the crowdfunding contract. This function will allow us to fetch information about a specific project.
+
+Here’s the code you need to add to your `server.js` file:
 
 ```bash
 app.get('/projects/:id', async (req, res) => {
@@ -176,19 +217,33 @@ app.get('/projects/:id', async (req, res) => {
 });
 ```
 
-This code creates a new route that fetches data about a project from the crowdfunding contract and sends it as a response. The getProject method is a placeholder for now - we’ll implement it in the next steps.
+Let’s break down what this code does:
+
+- `app.get('/projects/:id', async (req, res) => {...});` : This line creates a new route in our Express.js server. The route is /projects/:id, where :id is a placeholder for the ID of the project we want to fetch. The async keyword is used because we’ll be making asynchronous calls to the blockchain.
+
+- `const crowdfunding = new kit.web3.eth.Contract([...], '0x...');` : This line creates a new instance of our crowdfunding contract. The new kit.web3.eth.Contract part is a function provided by Web3.js that creates a new contract instance. The first argument is the ABI of the contract, and the second argument is the address of the contract on the blockchain.
+
+- `const project = await crowdfunding.methods.getProject(req.params.id).call();` : This line calls the getProject method of our contract. The `req.params.id` part is the ID of the project we want to fetch, which comes from the URL of the request. The await keyword is used because calling a contract method is an asynchronous operation that returns a promise.
+
+- `res.send(project);` : This line sends the project data back to the client as the response to their request.
+
+The `getProject` method is a placeholder for now - we’ll implement it in the next steps. This method will fetch data about a specific project from the blockchain and return it.
 
 ## Deploy and Test
 
-Now that we have set up our server and initialized the crowdfunding contract, it’s time to deploy and test our platform.
+After setting up the server and initializing the crowdfunding contract, the next step is to deploy and test the platform.
 
-To deploy the server, run the following command in your terminal:
+To deploy the server, you need to execute the following command in your terminal:
 
 ```bash
 node server.js
 ```
 
-You should see a message saying that the server is running. You can now open your browser and navigate to http://localhost:3000/projects/1 to fetch data about project 1.
+Upon running this command, you should see a message indicating that the server is up and running. This confirms that your server has been successfully deployed.
+
+Now, it’s time to test the platform. You can do this by opening your web browser and navigating to `http://localhost:3000/projects/1`. This URL corresponds to a route in your server that fetches data about the project with an ID of 1. If everything is set up correctly, you should be able to see the data for project 1 displayed in your browser.
+
+This process of deploying and testing is crucial as it allows you to verify that your platform is functioning as expected. It provides an opportunity to catch and fix any issues or bugs before the platform is released to end-users.
 
 ## Retrieving External Data in Smart Contracts
 
