@@ -253,7 +253,9 @@ With Celo’s blockchain, you can fetch external data using oracles. An oracle i
 
 ## Define the Data Request
 
-The first step to using an oracle is to define the data request. This is a description of the data you want to fetch. For instance, if you want to fetch the current USD to cGLD exchange rate, your data request might look like this:
+The first step in using an oracle is to define your data request. This is essentially specifying the data you want the oracle to fetch.
+
+In your example, you’re requesting the current exchange rate from cGLD to USD. Here’s how you might define this request:
 
 ```javascript
 const dataRequest = {
@@ -262,22 +264,43 @@ const dataRequest = {
 };
 ```
 
+In this code:
+
+- `dataRequest` is the request you’re sending to the oracle.
+- `currency` specifies the currency you’re converting from, which is ‘cGLD’ in this case.
+- `to` specifies the currency you’re converting to, which is ‘USD’ in this case.
+
 ## Query the Oracle
 
-Next, you need to query the oracle with your data request. The oracle will fetch the data from an external source and return it to your smart contract. Here’s how you might do it:
+After setting up the oracle, you need to query it with your data request. The oracle fetches the data from an external source and returns it to your smart contract. Here’s how you might do it:
 
 ```javascript
 const exchangeRate = await oracle.getExchangeRate(dataRequest);
 ```
 
+In this code:
+
+- `oracle` is the oracle you’ve set up.
+- `getExchangeRate` is a function that fetches the exchange rate.
+- `dataRequest` is the request you’re sending to the oracle.
+- `exchangeRate` is the data returned by the oracle.
+
 ## Fulfill the Data Request
 
-Once the oracle has fetched the data, you can use it in your smart contract. For instance, you might use the exchange rate to calculate the amount of cGLD a contributor will receive for their USD contribution:
+Once the oracle has fetched the required data (in this case, the exchange rate), you can use it in your smart contract. Here’s how you might use it to calculate the amount of cGLD (a digital asset) a contributor will receive for their contribution in USD:
 
 ```javascript
 const contributionInUSD = 100;
 const contributionInCGLD = contributionInUSD * exchangeRate;
 ```
+
+In this code:
+
+- `contributionInUSD` is the amount of contribution in USD, which is 100 in this case.
+- `exchangeRate` is the current exchange rate between USD and cGLD fetched by the oracle.
+- `contributionInCGLD` is the calculated amount of cGLD that the contributor will receive. It’s calculated by multiplying the contributionInUSD by the exchangeRate.
+
+This way, the oracle fetches the data (exchange rate), and the smart contract uses this data to perform its functions (calculating the amount of cGLD a contributor receives). This allows the smart contract to interact with real-world data and perform operations based on it.
 
 ## Test and Validate
 
