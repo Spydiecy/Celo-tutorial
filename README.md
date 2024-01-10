@@ -1,5 +1,7 @@
 # Building a Decentralized Crowdfunding Platform on Celo Blockchain
 
+![image](https://github.com/Spydiecy/Celo-tutorial/assets/100078125/e8370a67-c228-4f80-b117-589bc26d7cf2)
+
 ## Table of Contents
 
 - [Introduction](#introduction)
