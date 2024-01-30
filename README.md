@@ -1,4 +1,4 @@
-Building a Crowdfunding Platform on Celo
+Building a Crowdfunding Dapp on Celo
 ========================================
 
 Introduction
