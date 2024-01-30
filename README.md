@@ -1,5 +1,6 @@
 Building a Crowdfunding Dapp on Celo
 ========================================
+![image](https://github.com/Spydiecy/Celo-tutorial/assets/100078125/0caea6de-d933-4129-bca8-669b147089f7)
 
 Introduction
 ------------
